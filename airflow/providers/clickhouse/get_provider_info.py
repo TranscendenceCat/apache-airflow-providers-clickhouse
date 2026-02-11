@@ -10,7 +10,7 @@ def get_provider_info():
         "integrations": [
             {
                 "integration-name": "ClickHouse",
-                "external-doc-url": "https://www.postgresql.org/",
+                "external-doc-url": "https://clickhouse.com/",
                 "how-to-guide": ["/docs"],
                 "logo": "/docs/img/ch_logo_docs.svg",
                 "tags": ["software"],
