@@ -13,7 +13,7 @@ def get_provider_info():
                 "external-doc-url": "https://clickhouse.com/",
                 "how-to-guide": ["/docs"],
                 "logo": "/docs/img/ch_logo_docs.svg",
-                "tags": ["software"],
+                "tags": ["service"],
             }
         ],
         # "dialects": [
