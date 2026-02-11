@@ -30,9 +30,9 @@ setup(
     python_requires=">=3.6.*",
     install_requires=install_requires,
     setup_requires=['setuptools'],
-    extras_require={
-        'pandas': ['apache-airflow[pandas]>=3.0.0'],
-    },
+    # extras_require={
+    #     'pandas': ['apache-airflow[pandas]>=3.0.0'],
+    # },
     license=about.__license__,
     zip_safe=False,
     classifiers=[
