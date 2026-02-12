@@ -39,7 +39,7 @@ default_conn_name = 'clickhouse_default'
 
 class ClickHouseHook(BaseHook):
     conn_name_attr = 'clickhouse_conn_id'
-    # default_conn_name = 'clickhouse_default'
+    default_conn_name = 'clickhouse_default'
     conn_type = 'clickhouse'
     hook_name = 'ClickHouse'
 
