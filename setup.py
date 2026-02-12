@@ -27,7 +27,7 @@ setup(
             include=['airflow.providers.clickhouse', 'airflow.providers.clickhouse.*']
     ),
     include_package_data=True,
-    python_requires=">=3.6.*",
+    # python_requires=">=3.6.*",
     install_requires=install_requires,
     setup_requires=['setuptools'],
     extras_require={
