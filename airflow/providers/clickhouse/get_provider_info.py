@@ -7,6 +7,7 @@ def get_provider_info():
         "package-name": "apache-airflow-providers-clickhouse",
         "name": "ClickHouse",
         "description": "`ClickHouse <https://clickhouse.com/>`__\n",
+        'versions': ['0.1.1'],
         "integrations": [
             {
                 "integration-name": "ClickHouse",
@@ -16,18 +17,13 @@ def get_provider_info():
                 "tags": ["service"],
             }
         ],
-        # "dialects": [
-        #     {
-        #         "dialect-type": "clickhouse",
-        #         "dialect-class-name": "airflow.providers.postgres.dialects.postgres.PostgresDialect",
-        #     }
-        # ],
         "hooks": [
             {
                 "integration-name": "ClickHouse",
                 "python-modules": ["airflow.providers.clickhouse.hooks.clickhouse"],
             }
         ],
+        'hook-class-names': ['airflow.providers.clickhouse.hooks.clickhouse.ClickHouseHook'],
         "operators": [
             {
                 "integration-name": "ClickHouse",
@@ -46,20 +42,8 @@ def get_provider_info():
                 "connection-type": "clickhouse",
             }
         ],
-        # "asset-uris": [
-        #     {
-        #         "schemes": ["postgres", "postgresql"],
-        #         "handler": "airflow.providers.postgres.assets.postgres.sanitize_uri",
-        #     }
-        # ],
-        # "dataset-uris": [
-        #     {
-        #         "schemes": ["postgres", "postgresql"],
-        #         "handler": "airflow.providers.postgres.assets.postgres.sanitize_uri",
-        #     }
-        # ],
         "config": {
-            "postgres": {
+            "clickhouse": {
                 "description": "Configuration for ClickHouse hooks and operators.\n",
                 "options": {},
             }
