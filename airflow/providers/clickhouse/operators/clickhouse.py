@@ -20,62 +20,62 @@ class ClickHouseHookMixin(object):
         return ClickHouseHook(**hook_kwargs)
 
 
-class ClickHouseBaseOperator(ClickHouseHookMixin, sql.BaseSQLOperator):
+class ClickHouseOperator(ClickHouseHookMixin, sql.BaseSQLOperator):
     def get_db_hook(self) -> ClickHouseHook:
         return self._get_clickhouse_hook(schema=self.database)
 
 
 class ClickHouseSQLExecuteQueryOperator(
-    ClickHouseBaseOperator,
+    ClickHouseOperator,
     sql.SQLExecuteQueryOperator,
 ):
     pass
 
 
 class ClickHouseSQLColumnCheckOperator(
-    ClickHouseBaseOperator,
+    ClickHouseOperator,
     sql.SQLColumnCheckOperator,
 ):
     pass
 
 
 class ClickHouseSQLTableCheckOperator(
-    ClickHouseBaseOperator,
+    ClickHouseOperator,
     sql.SQLTableCheckOperator,
 ):
     pass
 
 
 class ClickHouseSQLCheckOperator(
-    ClickHouseBaseOperator,
+    ClickHouseOperator,
     sql.SQLCheckOperator,
 ):
     pass
 
 
 class ClickHouseSQLValueCheckOperator(
-    ClickHouseBaseOperator,
+    ClickHouseOperator,
     sql.SQLValueCheckOperator,
 ):
     pass
 
 
 class ClickHouseSQLIntervalCheckOperator(
-    ClickHouseBaseOperator,
+    ClickHouseOperator,
     sql.SQLIntervalCheckOperator,
 ):
     pass
 
 
 class ClickHouseSQLThresholdCheckOperator(
-    ClickHouseBaseOperator,
+    ClickHouseOperator,
     sql.SQLThresholdCheckOperator,
 ):
     pass
 
 
 class ClickHouseBranchSQLOperator(
-    ClickHouseBaseOperator,
+    ClickHouseOperator,
     sql.BranchSQLOperator,
 ):
     pass
