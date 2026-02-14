@@ -1,5 +1,6 @@
 import clickhouse_driver
 from airflow.providers.common.sql.hooks.sql import DbApiHook
+from airflow.models import Connection
 
 
 
