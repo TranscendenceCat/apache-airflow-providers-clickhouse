@@ -1,7 +1,7 @@
 from airflow.providers.common.sql.sensors.sql import SqlSensor
 
-from airflow_clickhouse_plugin.hooks.clickhouse import ClickHouseHook
-from airflow_clickhouse_plugin.operators.clickhouse import ClickHouseHookMixin
+from airflow.providers.clickhouse.hooks.clickhouse import ClickHouseHook
+from airflow.providers.clickhouse.operators.clickhouse import ClickHouseHookMixin
 
 
 class ClickHouseSqlSensor(ClickHouseHookMixin, SqlSensor):
