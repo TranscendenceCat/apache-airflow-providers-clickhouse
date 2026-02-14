@@ -11,7 +11,7 @@ class ClickHouseHookMixin(object):
     conn_id: str
     hook_params: t.Optional[dict]
 
-    def _get_clickhouse_db_api_hook(self, **extra_hook_params) -> ClickHouseHook:
+    def _get_clickhouse_hook(self, **extra_hook_params) -> ClickHouseHook:
         hook_kwargs = {}
         if self.conn_id is not None:
             hook_kwargs['clickhouse_conn_id'] = self.conn_id
@@ -23,7 +23,7 @@ class ClickHouseHookMixin(object):
 
 class ClickHouseBaseOperator(ClickHouseHookMixin, sql.BaseSQLOperator):
     def get_db_hook(self) -> ClickHouseHook:
-        return self._get_clickhouse_db_api_hook(schema=self.database)
+        return self._get_clickhouse_hook(schema=self.database)
 
 
 class ClickHouseSQLExecuteQueryOperator(
