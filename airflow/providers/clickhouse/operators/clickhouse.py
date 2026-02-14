@@ -1,83 +1,82 @@
 import typing as t
 
-from airflow.sdk import BaseOperator
+from airflow.providers.common.sql.operators import sql
 
-from airflow.providers.clickhouse.hooks.clickhouse import ClickHouseHook, \
-    ExecuteParamsT, ExecuteReturnT, default_conn_name
-
-
-class BaseClickHouseOperator(BaseOperator):
-    """
-    A superclass for operator classes. Defines __init__ with common arguments.
-
-    Includes arguments of clickhouse_driver.Client.execute.
-    """
-
-    template_fields = (  # all str-containing arguments
-        '_sql',
-        '_parameters',
-        '_external_tables',
-        '_query_id',
-        '_settings',
-        '_database',
-    )
-    template_ext: t.Sequence[str] = ('.sql',)
-    template_fields_renderers = {
-        '_sql': 'sql',
-        '_parameters': 'json',
-        '_external_tables': 'json',
-        '_settings': 'json',
-    }
-
-    def __init__(
-            self,
-            *args,
-            sql: t.Union[str, t.Iterable[str]],
-            # arguments of clickhouse_driver.Client.execute
-            parameters: t.Optional[ExecuteParamsT] = None,
-            with_column_types: bool = False,
-            external_tables: t.Optional[t.List[dict]] = None,
-            query_id: t.Optional[str] = None,
-            settings: t.Dict[str, t.Any] = None,
-            types_check: bool = False,
-            columnar: bool = False,
-            # arguments of ClickHouseHook.__init__
-            clickhouse_conn_id: str = default_conn_name,
-            database: t.Optional[str] = None,
-            **kwargs,
-    ):
-        super().__init__(*args, **kwargs)
-
-        self._sql = sql
-
-        self._parameters = parameters
-        self._with_column_types = with_column_types
-        self._external_tables = external_tables
-        self._query_id = query_id
-        self._settings = settings
-        self._types_check = types_check
-        self._columnar = columnar
-
-        self._clickhouse_conn_id = clickhouse_conn_id
-        self._database = database
-
-    def _hook_execute(self) -> ExecuteReturnT:
-        hook = ClickHouseHook(
-            clickhouse_conn_id=self._clickhouse_conn_id,
-            database=self._database,
-        )
-        return hook.execute(
-            self._sql,
-            self._parameters,
-            self._with_column_types,
-            self._external_tables,
-            self._query_id,
-            self._settings,
-            self._types_check,
-            self._columnar,
-        )
+from airflow_clickhouse_plugin.hooks.clickhouse import \
+    ClickHouseHook
 
 
-class ClickHouseOperator(BaseClickHouseOperator, BaseOperator):
-    def execute(self, context: t.Dict[str, t.Any]) -> ExecuteReturnT:
-        return self._hook_execute()
+class ClickHouseHookMixin(object):
+    # these attributes are defined in both BaseSQLOperator and SqlSensor
+    conn_id: str
+    hook_params: t.Optional[dict]
+
+    def _get_clickhouse_db_api_hook(self, **extra_hook_params) -> ClickHouseHook:
+        hook_kwargs = {}
+        if self.conn_id is not None:
+            hook_kwargs['clickhouse_conn_id'] = self.conn_id
+        if self.hook_params is not None:
+            hook_kwargs.update(self.hook_params)
+        hook_kwargs.update(extra_hook_params)
+        return ClickHouseHook(**hook_kwargs)
+
+
+class ClickHouseBaseOperator(ClickHouseHookMixin, sql.BaseSQLOperator):
+    def get_db_hook(self) -> ClickHouseHook:
+        return self._get_clickhouse_db_api_hook(schema=self.database)
+
+
+class ClickHouseSQLExecuteQueryOperator(
+    ClickHouseBaseOperator,
+    sql.SQLExecuteQueryOperator,
+):
+    pass
+
+
+class ClickHouseSQLColumnCheckOperator(
+    ClickHouseBaseOperator,
+    sql.SQLColumnCheckOperator,
+):
+    pass
+
+
+class ClickHouseSQLTableCheckOperator(
+    ClickHouseBaseOperator,
+    sql.SQLTableCheckOperator,
+):
+    pass
+
+
+class ClickHouseSQLCheckOperator(
+    ClickHouseBaseOperator,
+    sql.SQLCheckOperator,
+):
+    pass
+
+
+class ClickHouseSQLValueCheckOperator(
+    ClickHouseBaseOperator,
+    sql.SQLValueCheckOperator,
+):
+    pass
+
+
+class ClickHouseSQLIntervalCheckOperator(
+    ClickHouseBaseOperator,
+    sql.SQLIntervalCheckOperator,
+):
+    pass
+
+
+class ClickHouseSQLThresholdCheckOperator(
+    ClickHouseBaseOperator,
+    sql.SQLThresholdCheckOperator,
+):
+    pass
+
+
+class ClickHouseBranchSQLOperator(
+    ClickHouseBaseOperator,
+    sql.BranchSQLOperator,
+):
+    pass
