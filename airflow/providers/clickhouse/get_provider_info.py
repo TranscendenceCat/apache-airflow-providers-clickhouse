@@ -23,7 +23,7 @@ def get_provider_info():
                 "python-modules": ["airflow.providers.clickhouse.hooks.clickhouse"],
             }
         ],
-        'hook-class-names': ['airflow.providers.clickhouse.hooks.clickhouse.ClickHouseHook'],
+        # 'hook-class-names': ['airflow.providers.clickhouse.hooks.clickhouse.ClickHouseHook'],
         "operators": [
             {
                 "integration-name": "ClickHouse",
