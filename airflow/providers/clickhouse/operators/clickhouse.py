@@ -2,8 +2,7 @@ import typing as t
 
 from airflow.providers.common.sql.operators import sql
 
-from airflow_clickhouse_plugin.hooks.clickhouse import \
-    ClickHouseHook
+from airflow_clickhouse_plugin.hooks.clickhouse import ClickHouseHook
 
 
 class ClickHouseHookMixin(object):
