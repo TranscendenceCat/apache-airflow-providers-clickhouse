@@ -1,0 +1,14 @@
+# visual studio code
+.vscode/
+
+# JetBrains IDEs
+.idea/
+.fleet/
+
+# python
+venv/
+__pycache__/
+*.egg-info/
+
+# misc
+.DS_Store
