@@ -2,19 +2,19 @@
 #
 #
 
-from __future__ import annotations
+# from __future__ import annotations
 
-import packaging.version
+# import packaging.version
 
-from airflow import __version__ as airflow_version
+# from airflow import __version__ as airflow_version
 
-__all__ = ["__version__"]
+# __all__ = ["__version__"]
 
-__version__ = "0.0.1"
+# __version__ = "0.0.1"
 
-if packaging.version.parse(packaging.version.parse(airflow_version).base_version) < packaging.version.parse(
-    "3"
-):
-    raise RuntimeError(
-        f"The package `apache-airflow-providers-clickhouse:{__version__}` needs Apache Airflow 3+"
-    )
+# if packaging.version.parse(packaging.version.parse(airflow_version).base_version) < packaging.version.parse(
+#     "3"
+# ):
+#     raise RuntimeError(
+#         f"The package `apache-airflow-providers-clickhouse:{__version__}` needs Apache Airflow 3+"
+#     )
