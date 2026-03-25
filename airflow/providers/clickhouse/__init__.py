@@ -6,7 +6,10 @@ from __future__ import annotations
 
 import packaging.version
 
-from airflow.sdk import __version__ as airflow_version
+import importlib.metadata
+airflow_version = importlib.metadata.version('apache-airflow')
+
+# from airflow.sdk import __version__ as airflow_version
 
 __all__ = ["__version__"]
 
